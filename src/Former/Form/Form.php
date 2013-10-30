@@ -339,12 +339,12 @@ class Form extends FormerObject
 
     // Get string by name
     if (!String::contains($name, '@')) {
-      $route = $this->app['router']->getRoutes()->get($name);
+      $route = $this->app['router']->getRoutes()->getByName($name);
 
     // Get string by uses
     } else {
       foreach ($this->app['router']->getRoutes() as $route) {
-        if ($action = $route->getOption('_uses')) {
+        if ($action = $route->parameter('_uses')) {
           if ($action == $name) {
             break;
           }
@@ -352,7 +352,7 @@ class Form extends FormerObject
       }
     }
 
-    return array_get($route->getMethods(), 0);
+    return array_get($route->methods(), 0);
   }
 
   /**
